@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Trending');
 });
 Route::get('/demo', [DemoController::class, 'demo'])->name('demo');
+Route::get('/fetch_cast', [DemoController::class, 'fetch_cast']);
