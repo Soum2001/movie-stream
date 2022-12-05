@@ -17,8 +17,8 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<script src="assets/jquery/jquery.min.js"></script>
-<script src= "assets/js/moviedetails.js"></script>
+<script src="{{url('assets/jquery/jquery.min.js')}}"></script>
+<script src= "{{url('assets/js/moviedetails.js')}}"></script>
 <!-- jQuery -->
 
 </body>

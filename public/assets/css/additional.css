@@ -1,61 +1,10 @@
-.form-gap {
-    padding-top: 70px;
-}
-body{
-background:#eee;
-}
-
-element.style {
-}
-.img-circle {
-    border-radius: 50%;
-}
-.profile-user-img {
-    border: 3px solid #adb5bd;
-    margin: 0 auto;
-    padding: 3px;
-    width: 198px;
-    height: 198px;
-}
-.panel-default{
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding:10px; 
-}
-    .bgWhite{
-    background:white;
-    box-shadow:0px 3px 6px 0px #cacaca;
-  
-    }
-
-    .title{
-    font-weight:600;
-    margin-top:20px;
-    font-size:24px
-    }
-
-    .customBtn{
-    border-radius:0px;
-    padding:10px;
-    width:88px;
-    
-    }
-    form input{
-    display:inline-block;
-    width:50px;
-    height:50px;
-    text-align:center;
-    }
-    .widget-user .widget-user-image>img {
-        border: 3px solid #fff;
-        height: 131px;
-        width: 132px;
-       
-    }
-    .widget-user .widget-user-header {
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-        height: 166px;
-        padding: 1rem;
-        text-align: center;
-    }
+.media-scroller {
+    overflow: auto;
+    white-space: nowrap;
+  }
+  .media-scroller .media-element {
+    display: inline-block;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }

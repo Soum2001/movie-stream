@@ -1,72 +1,103 @@
 @include('layouts.Header')
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h2 class="display-5 text-info">Search Your Movies/TV Shows</h2>
-                <form action="simple-results.html">
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-xs btn-info active">
-                            <input type="radio" name="options" id="option_a1" autocomplete="off" checked="">
-                            Movie
-                        </label>
-                        <label class="btn btn-xs btn-info">
-                            <input type="radio" name="options" id="option_a2" autocomplete="off">
-                            TV Show
-                        </label>
-                    </div>
-                    <div class="input-group mt-2">
-                        <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-lg btn-default">
-                                <i class="fa fa-search"></i>
-                            </button>
+
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+        @include('layouts.Nav')
+        <section class="content">
+            <div class="container-fluid">
+                <div id="home">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <h2 class="display-5 text-info">Search Your Movies/TV Shows</h2>
+                            <form action="simple-results.html">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-xs btn-info active">
+                                        <input type="radio" name="options" id="option_a1" value="movie" class="option">
+                                        Movie
+                                    </label>
+                                    <label class="btn btn-xs btn-info">
+                                        <input type="radio" name="options" id="option_a2" value="tv" class="option">
+                                        TV Show
+                                    </label>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" id="search_name">
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-lg btn-default" onclick="search()">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            @foreach($movie_data['results'] as $movie)
-            <div class="col-sm-2">
-                <div class="card">
-                    <div class="card-body">
-                        <img class="img-fluid pad" src="https://www.themoviedb.org/t/p/w220_and_h330_face{{ $movie['poster_path'] }}" alt="Photo" style="object-fit: contain;width: 100%;height: 300px;"  onclick="movie_details(<?= $movie['id']?> )" >
-                    </div>
-                    <div class="card-footer">
-                        <h4 class="text-2xl text-gray-900 font-semibold mb-2">{{ $movie['title'] }} ({{ date('Y',strtotime($movie['release_date'])) }})</h4>
-                        <div class="flex items-center space-x-2 tracking-wide pb-1">
-                            <div>
-                                <b class="text-gray-500">Release Date</b>
-                                <span class="leading-6 text-sm">{{ $movie['release_date'] }}</span>
-                            </div>
-                            <div>
-                                <b class="text-gray-500">Rating</b>
-                                <span class="leading-6 text-sm">{{ $movie['vote_average'] }}</span>
-                            </div>
+                    <br>
+                    <div class="container-fluid">
+                        <h3>Popular Movies</h3>
+                        <div class="media-scroller">
+                            @foreach($movie_data['results'] as $movie)
+                            <div class="media-element">
+                                <div class="card">
+                                    <div class="card-body">
 
-                            <span class="leading-6 mt-5 text-gray-500">{{ $movie['overview'] }}</span>
+                                        <a href=" {{ url('fetch_cast/'.$movie['id']) }}"><img class="img-fluid pad" src="https://www.themoviedb.org/t/p/w220_and_h330_face{{ $movie['poster_path'] }}" alt="Photo" style="object-fit: contain;width: 100%;height: 300px;"></a>
+                                    </div>
+                                    <div class="card-footer">
+                                        <h4 class="text-2xl text-gray-900 font-semibold mb-2">{{ $movie['title'] }} ({{ date('Y',strtotime($movie['release_date'])) }})</h4>
+                                        <div class="flex items-center space-x-2 tracking-wide pb-1">
+                                            <div>
+                                                <b class="text-gray-500">Release Date</b>
+                                                <span class="leading-6 text-sm">{{ $movie['release_date'] }}</span>
+                                            </div>
+                                            <div>
+                                                <b class="text-gray-500">Rating</b>
+                                                <span class="leading-6 text-sm">{{ $movie['vote_average'] }}</span>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
                         </div>
+                        <h3>Popular TV Show</h3>
+                        <div class="media-scroller">
+                            @foreach($tv['results'] as $tv_data)
+                            <div class="media-element">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img class="img-fluid pad" src="https://www.themoviedb.org/t/p/w220_and_h330_face{{ $tv_data['poster_path'] }}" alt="Photo" style="object-fit: contain;width: 100%;height: 300px;" onclick="tv_details(<?= $movie['id'] ?> )">
+                                    </div>
+                                    <div class="card-footer">
+                                        <h4 class="text-2xl text-gray-900 font-semibold mb-2">{{ $tv_data['original_name'] }}</h4>
+                                        <div class="flex items-center space-x-2 tracking-wide pb-1">
+                                            <div>
+                                                <b class="text-gray-500">Release Date</b>
+                                                <span class="leading-6 text-sm">{{ $tv_data['first_air_date'] }}</span>
+                                            </div>
+                                            <div>
+                                                <b class="text-gray-500">Rating</b>
+                                                <span class="leading-6 text-sm">{{ $tv_data['vote_average'] }}</span>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
+                <div class="search">
+
+                </div>
             </div>
-            @endforeach
-        </div>
-        
+        </section>
     </div>
-</section>
+    <!-- /.content -->
+    @include('layouts.Footer')
 
-
-
-<!-- /.content -->
-
-
-@include('layouts.Footer')
-
-<!-- <body class="sidebar-mini sidebar-collapse" style="height: auto;">
+    <!-- <body class="sidebar-mini sidebar-collapse" style="height: auto;">
     <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
         <div class="container">
             <a href="../../index3.html" class="navbar-brand">
