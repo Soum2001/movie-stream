@@ -17,7 +17,7 @@ class DemoController extends Controller
 
         return view('Trending', ['movie_data' => $movie, 'tv' => $tv]);
     }
-    public function fetch_cast(Request $request)
+    public function fetchCast(Request $request)
     {
         $movie_id = $request->movie_id;
         $movie = Http::asJson()
@@ -26,7 +26,7 @@ class DemoController extends Controller
             ->get(config('services.tmdb.endpoint') . 'movie/' . $movie_id . '/credits?api_key=' . config('services.tmdb.api'))->collect();
         return view('Cast', ['cast_details' => $cast, 'movie' => $movie]);
     }
-    public function fetch_person(Request $request)
+    public function fetchPerson(Request $request)
     {
         $person_id  =   $request->person_id;
         $person = Http::asJson()
@@ -65,4 +65,5 @@ class DemoController extends Controller
         }
         return response()->json($output);
     }
+
 }

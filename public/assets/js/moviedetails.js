@@ -17,6 +17,7 @@ function movie_details(movie_id) {
 function search() {
     var search = $("#search_name").val();
     
+    
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
