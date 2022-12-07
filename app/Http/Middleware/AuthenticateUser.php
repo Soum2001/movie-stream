@@ -20,7 +20,7 @@ class AuthenticateUser
         {
             return $next($request);
         }
-        return redirect('trending');
+        return redirect('/');
         
     }
 }

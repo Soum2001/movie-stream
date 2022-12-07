@@ -16,14 +16,21 @@ class AuthController extends Controller
         session()->put('id', $user[0]['id']);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('trending');
+            return redirect()->intended('/');
         } else {
             return view('Login');
         }
     }
+
     public function loginPage()
     {
         return view('Login');
     }
 
+    // public function logout(Request $request)
+    // {
+    //     $request->session()->flush();
+    //     Auth::logout();
+    //     return redirect()->intended('/logout1');
+    // }
 }

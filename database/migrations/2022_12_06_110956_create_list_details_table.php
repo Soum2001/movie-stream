@@ -17,6 +17,7 @@ class CreateListDetailsTable extends Migration
             $table->id();
             $table->bigInteger('list_id');
             $table->foreign('list_id')->references('id')->on('playlist');
+            $table->string('poster_path');
             $table->timestamps();
         });
     }

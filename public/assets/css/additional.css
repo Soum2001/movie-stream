@@ -27,7 +27,12 @@
   border:1px solid black;
   padding: 8px;
   border-radius: 100%;
-  background-color:rgba(0, 87, 128, 0.977);
+  background-color:rgb(3,37,65);
   color: white;
 }
+.add_list:hover{
+  cursor: pointer;
+}
+
+
   

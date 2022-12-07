@@ -39,7 +39,6 @@
                             <div class="media-element">
                                 <div class="card">
                                     <div class="card-body">
-
                                         <a href=" {{ url('fetch_cast/'.$movie['id']) }}"><img class="img-fluid pad" src="https://www.themoviedb.org/t/p/w220_and_h330_face{{ $movie['poster_path'] }}" alt="Photo" style="object-fit: contain;width: 100%;height: 300px;"></a>
                                     </div>
                                     <div class="card-footer">

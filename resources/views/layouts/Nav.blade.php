@@ -29,13 +29,20 @@
             <li class="nav-item dropdown">
                 <b style="color:white"><a class="fas fa-plus nav-link" style="color:white; font-size:25px" href="logout" id="logout_btn" name="logout_btn"></a></b>
             </li>
-
+            @if(Session::has('id'))
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="logout" id="login" name="login"><b style="color:white">Logout</b></a>
+            </li>
+            @endif
+            @if(!(Session::has('id')))
             <li class="nav-item dropdown">
                 <a class="nav-link" href="login_page" id="login" name="login"><b style="color:white">Login</b></a>
             </li>
+           @endif
             <li class="nav-item dropdown">
                 <a class="nav-link" href="registeration_page" id="registeration_page" name="registeration_page"><b style="color:white">Join</b></a>
             </li>
+            
         </ul>
 
     </div>
