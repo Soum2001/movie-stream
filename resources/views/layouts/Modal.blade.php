@@ -45,7 +45,7 @@
             </div>
             <div class="modal-footer" style="background-color:rgb(3,37,65)">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="new_gallery" onclick="new_list('<?=$movie['poster_path']?>')">Add Gallery</button>
+                <button type="button" class="btn btn-primary" id="new_gallery" onclick="new_list('<?=$movie['poster_path'],$movie['title']?>')">Add Gallery</button>
             </div>
 
         </div>

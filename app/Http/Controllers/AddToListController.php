@@ -32,9 +32,10 @@ class AddToListController extends Controller
         $playlist->user_id = Session('id');
         if($playlist->save())
         {
+            //echo($playlist->id);
             $listDetails              = new ListDetail;
             $listDetails->poster_path = $poster_path;       
-            $listDetails->list_id     = $playlist->id();
+            $listDetails->list_id     = $playlist->id;
             if($listDetails->save())
             {
                 $output['dbStatus']   = 1;

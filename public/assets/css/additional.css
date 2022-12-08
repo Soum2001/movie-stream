@@ -33,6 +33,7 @@
 .add_list:hover{
   cursor: pointer;
 }
+canvas{
+  height: 90px;
+}
 
-
-  

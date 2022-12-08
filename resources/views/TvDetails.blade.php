@@ -26,7 +26,7 @@
                     <p>{{$tv['overview']}}</p>
 
                     <hr>
-                    <p><span class="text-muted">Date Released:</span> {{ $tv['first_air_date'] }}</p>
+                    <p><span class="text-muted">Date Released:</span> {{  Carbon\Carbon::parse($tv['first_air_date'] )->toFormattedDateString()}}</p>
                     <p><span class="text-muted">Status:</span> {{ $tv['status'] }}</p>
                 </div>
            
@@ -47,10 +47,10 @@
                             <div class="card-footer">
                                 <div class="flex items-center space-x-2 tracking-wide pb-1">
                                     <div>
-                                        <span class="leading-6 text-sm">{{ $cast['original_name'] }}</span>
+                                        <span class="leading-6 text-bold">{{ $cast['original_name'] }}</span>
                                     </div>
                                     <div>
-                                        <span class="leading-6 text-sm">{{ $cast['character'] }}</span>
+                                        <i class="leading-6 text-sm">{{ $cast['character'] }}</i>
                                     </div>
                                 </div>
 

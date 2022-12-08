@@ -51,9 +51,8 @@ function add_to_list(poster_path) {
         }
     });
 }
-function new_list(poster_path){
+function new_list(poster_path,movie_title){
     var list_name = $("#list_name").val();
-    
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
