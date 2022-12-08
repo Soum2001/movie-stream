@@ -16,8 +16,6 @@ function movie_details(movie_id) {
 }
 function search() {
     var search = $("#search_name").val();
-
-
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -53,7 +51,7 @@ function add_to_list(poster_path) {
         }
     });
 }
-function new_list(){
+function new_list(poster_path){
     var list_name = $("#list_name").val();
     
     $.ajax({
@@ -63,18 +61,25 @@ function new_list(){
         },
         url: '../create_new_list',
         type: 'post',
-        data: { list_name : list_name },
+        data: { list_name : list_name ,poster_path : poster_path },
         success: function (response) {
             var jsonData = JSON.parse(JSON.stringify(response));
             if (jsonData.dbStatus) {
                 toastr.success(jsonData.dbMessage);
+                $("#add_new_list").modal('hide');
             }
             else {
                 toastr.error(jsonData.dbMessage);
+                $("#add_new_list").modal('hide');
             }
             //      $("#home").html("");
             //     // //document.getElementById(home).innerHTML = "";
             //      jQuery('.search').html(response);
         }
     });
+}
+function new_list_page()
+{
+    $("#add_new_list").modal('show');
+    $('#add_list').modal('hide');
 }

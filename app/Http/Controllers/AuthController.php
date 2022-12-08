@@ -27,10 +27,10 @@ class AuthController extends Controller
         return view('Login');
     }
 
-    // public function logout(Request $request)
-    // {
-    //     $request->session()->flush();
-    //     Auth::logout();
-    //     return redirect()->intended('/logout1');
-    // }
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        Auth::logout();
+        return redirect()->intended('/');
+    }
 }

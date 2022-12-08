@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ListDetail;
 use App\Models\Playlist;
+use Illuminate\Contracts\Session\Session;
+
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
@@ -24,12 +26,23 @@ class AddToListController extends Controller
     public function addNewList(Request $request)
     {
         $output = array('dbStatus' => '','dbMessage'=>'');
+        $poster_path = $request->poster_path;
         $playlist       = new Playlist;
         $playlist->list = $request->list_name;
+        $playlist->user_id = Session('id');
         if($playlist->save())
         {
-            $output['dbStatus']   = 1;
-            $output['dbMessage']  = 'New List Created';
+            $listDetails              = new ListDetail;
+            $listDetails->poster_path = $poster_path;       
+            $listDetails->list_id     = $playlist->id();
+            if($listDetails->save())
+            {
+                $output['dbStatus']   = 1;
+                $output['dbMessage']  = 'New List Created';
+            }else{
+                $output['dbStatus']   = 0;
+                $output['dbMessage']  = 'Some Error Occurred';
+            }
         }else{
             $output['dbStatus']   = 0;
             $output['dbMessage']  = 'Some Error Occurred.';

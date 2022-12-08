@@ -7,7 +7,14 @@
         <div class="container movie-details-header">
             <div class="row">
                 <div class="col-sm-5 text-center">
+                    @if($person_details['profile_path'] == "")
+                    <img src="{{url('assets/image/default-avatar.png')}}">
+                    
+                    @elseif($person_details['profile_path'] != "")
                     <img src="https://www.themoviedb.org/t/p/w300_and_h450_face{{ $person_details['profile_path'] }}">
+                    
+                    @endif
+                   
                     <br>
                     <div class="social_links">
                         <div>
