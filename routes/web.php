@@ -49,4 +49,5 @@ Route::get('logout', [AuthController::class, 'logout']);
 Route::get('add_to_list', [AddToListController::class, 'checkUser']);
 Route::get('new_list_page', [AddToListController::class, 'list_creation_page']);
 Route::post('create_new_list', [AddToListController::class, 'addNewList']);
+Route::post('add_to_list', [AddToListController::class, 'addToList']);
 //-----------------------------------AddToListController End----------------------------------------------------------

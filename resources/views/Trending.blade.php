@@ -1,5 +1,4 @@
 @include('layouts.Header')
-
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
         @include('layouts.Nav')
@@ -28,7 +27,6 @@
                                     </button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <br>
@@ -97,20 +95,6 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <img class="img-fluid pad" src="https://www.themoviedb.org/t/p/w220_and_h330_face{{$custom_path['poster_path']}}" alt="Photo" style="object-fit: contain;width: 100%;height: 300px;" )></a>
-                                    </div>
-                                    <div class="card-footer">
-                                        <h4 class="text-2xl text-gray-900 font-semibold mb-2">{{ $tv_data['original_name'] }}</h4>
-                                        <div class="flex items-center space-x-2 tracking-wide pb-1">
-                                            <div>
-                                                <span class="text-gray-500">Release Date</span>
-                                                <span class="leading-6 text-bold">{{ Carbon\Carbon::parse($tv_data['first_air_date'] )->toFormattedDateString()}}</span>
-                                            </div>
-                                            <div>
-                                                <span class="text-gray-500">Rating</span>
-                                                <span class="leading-6 text-bold">{{ $tv_data['vote_average'] }}</span>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>

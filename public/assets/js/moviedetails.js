@@ -51,7 +51,8 @@ function add_to_list(poster_path) {
         }
     });
 }
-function new_list(poster_path,movie_title){
+function new_list(poster_path,movie_id){
+
     var list_name = $("#list_name").val();
     $.ajax({
         headers: {
@@ -60,7 +61,7 @@ function new_list(poster_path,movie_title){
         },
         url: '../create_new_list',
         type: 'post',
-        data: { list_name : list_name ,poster_path : poster_path },
+        data: { list_name : list_name ,poster_path : poster_path ,movie_id : movie_id },
         success: function (response) {
             var jsonData = JSON.parse(JSON.stringify(response));
             if (jsonData.dbStatus) {
@@ -81,4 +82,30 @@ function new_list_page()
 {
     $("#add_new_list").modal('show');
     $('#add_list').modal('hide');
+}
+function select_list(id,poster_path,movie_id)
+{
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Accept': 'application/json',
+        },
+        url: '../add_to_list',
+        type: 'post',
+        data: { id :id,poster_path : poster_path ,movie_id : movie_id },
+        success: function (response) {
+            var jsonData = JSON.parse(JSON.stringify(response));
+            if (jsonData.dbStatus) {
+                toastr.success(jsonData.dbMessage);
+                $("#add_new_list").modal('hide');
+            }
+            else {
+                toastr.error(jsonData.dbMessage);
+                $("#add_new_list").modal('hide');
+            }
+            //      $("#home").html("");
+            //     // //document.getElementById(home).innerHTML = "";
+            //      jQuery('.search').html(response);
+        }
+    });
 }

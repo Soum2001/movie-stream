@@ -14,14 +14,20 @@
                 <div class="col-sm-7">
                     <h1><span><b>{{$movie['title']}}(2022)</b></span></h1>
                     <p>
-                  
-
-                        <input type="text" class="knob" value="<?= $movie['vote_average']?>" data-skin="tron" data-thickness="0.1" data-width="90" data-height="90" data-fgcolor="#00a65a" style="width: 49px; height: 30px; position: absolute; vertical-align: middle; margin-top: 14px; margin-left: -54px; border: 0px; background: none; font: bold 18px Arial; text-align: center; color: rgb(0, 166, 90); padding: 0px; appearance: none;">
-                   
-                    <i class="fas fa-list add_list" onclick="add_to_list('<?= $movie['poster_path'] ?>')" data-toggle="tooltip" data-html="true"></i>
-                    <i class="fas fa-heart add_list"></i>
-                    <i class="fas fa-bookmark add_list"></i>
-                    <i class="fas fa-star add_list"></i>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" class="knob" value="<?= $vote_average ?>" data-skin="tron" data-thickness="0.1" data-width="60" data-height="60" data-fgColor="#00a65a" readonly>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="score"><b>User<br>Score<br></b></div>
+                            <div class="icon_list">
+                                <i class="fas fa-list add_list" onclick="add_to_list('<?= $movie['poster_path'] ?>')" data-toggle="tooltip" data-html="true"></i>
+                                <i class="fas fa-heart add_list"></i>
+                                <i class="fas fa-bookmark add_list"></i>
+                                <i class="fas fa-star add_list"></i>
+                            </div>
+                        </div>
+                    </div>
                     </p>
                     <p class="text-muted">Genre:</span> @foreach($movie['genres'] as $geners){{ $geners['name'] }}, @endforeach
 
@@ -35,8 +41,8 @@
                     <p><span class="text-muted">Date Released:</span>{{ Carbon\Carbon::parse($movie['release_date'])->toFormattedDateString() }}</p>
 
                     <p><span class="text-muted">Duration:</span> {{ floor($movie['runtime']/60)}}hr {{ $movie['runtime']%60}}mins</p>
-                    <p><span class="text-muted">Budget:</span> ${{ $movie['budget']*18}}</p>
-                    <p><span class="text-muted">Revenue:</span> ${{ $movie['revenue']*18 }}</p>
+                    <p><span class="text-muted">Budget:</span> ${{ number_format($movie['budget'])}}</p>
+                    <p><span class="text-muted">Revenue:</span> ${{ number_format($movie['revenue']) }}</p>
                     @if($movie['status'] == "Released")
                     <p><span class="text-muted">Status:</span> <span style="color:green">{{ $movie['status'] }}</span></p>
                     @endif

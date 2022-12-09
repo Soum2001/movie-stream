@@ -33,14 +33,14 @@ class HomeController extends Controller
         $movie_id = $request->movie_id;
         $movie = Http::asJson()
             ->get(config('services.tmdb.endpoint') . 'movie/' . $movie_id . '?api_key=' . config('services.tmdb.api'))->collect();
-
-        //echo($movie['release_date']->toFormattedDateString());  
+        $vote_average  = ceil($movie['vote_average']*10);
+       
         $cast = Http::asJson()
             ->get(config('services.tmdb.endpoint') . 'movie/' . $movie_id . '/credits?api_key=' . config('services.tmdb.api'))->collect();
 
         $list =  Playlist::where('user_id', '=', session('id'))->get();
 
-        return view('MovieDetails', ['cast_details' => $cast, 'movie' => $movie, 'list' => $list]);
+        return view('MovieDetails', ['cast_details' => $cast, 'movie' => $movie, 'list' => $list ,'vote_average' => $vote_average]);
     }
 
     public function tvDetails(Request $request)
@@ -52,7 +52,9 @@ class HomeController extends Controller
             ->get(config('services.tmdb.endpoint') . 'tv/' . $tv_id . '/credits?api_key=' . config('services.tmdb.api'))->collect();
 
         $list =  Playlist::where('user_id', '=', session('id'))->get();
-        return view('TvDetails', ['cast_details' => $cast, 'tv' => $tv, 'list' => $list]);
+        $vote_average  = ceil($tv['vote_average']*10);
+
+        return view('TvDetails', ['cast_details' => $cast, 'tv' => $tv, 'list' => $list ,'vote_average' => $vote_average]);
     }
 
     public function castDetails(Request $request)

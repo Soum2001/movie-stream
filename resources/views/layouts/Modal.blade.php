@@ -15,7 +15,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 @foreach($list as $list_details)
-                                <a class="dropdown-item" tabindex="-1" id="add_gallery">{{$list_details->list}}</a>
+                                <a class="dropdown-item" tabindex="-1" id='<?= $list_details['id']?>' onclick="select_list('<?= $list_details['id']?>','<?=$movie['poster_path']?>','<?=$movie['id']?>')">{{$list_details->list}}</a>
                                 @endforeach
                             </div>
                         </li>
@@ -45,7 +45,7 @@
             </div>
             <div class="modal-footer" style="background-color:rgb(3,37,65)">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="new_gallery" onclick="new_list('<?=$movie['poster_path'],$movie['title']?>')">Add Gallery</button>
+                <button type="button" class="btn btn-primary" id="new_gallery" onclick="new_list('<?=$movie['poster_path']?>','<?=$movie['id']?>')">Add Gallery</button>
             </div>
 
         </div>
