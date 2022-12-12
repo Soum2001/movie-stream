@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ListDetail;
 use App\Models\Playlist;
+use App\Models\MovieDetails;
+use App\Models\UserlistDetails;
+
 use Illuminate\Contracts\Session\Session;
 
 use Illuminate\Support\Facades\Log;
@@ -28,21 +31,31 @@ class AddToListController extends Controller
         //echo($request->movie_id);
         $output = array('dbStatus' => '', 'dbMessage' => '');
         $poster_path = $request->poster_path;
-        $check  = Playlist::select('list')->where('user_id', '=', Session('id'))->get(); //List is existing or not
-        //echo($check[0]['list']);
-        if ($check[0]['list'] != $request->list_name) {
+
+        $check  = Playlist::where('list_name', $request->list_name)->get(); //List is existing or not
+        //echo(sizeof($check));
+        if (!sizeof($check)) {
             $playlist       = new Playlist;
-            $playlist->list = $request->list_name;
-            $playlist->user_id = Session('id');
+            $playlist->list_name = $request->list_name;
             if ($playlist->save()) {
                 //echo($playlist->id);
-                $listDetails              = new ListDetail;
-                $listDetails->poster_path = $poster_path;
-                $listDetails->list_id     = $playlist->id;
-                $listDetails->movie_id    = $request->movie_id;
-                if ($listDetails->save()) {
-                    $output['dbStatus']   = 1;
-                    $output['dbMessage']  = 'New List Created';
+                $movieDetails              = new MovieDetails;
+                $movieDetails->poster_path = $poster_path;
+                //$movieDetails->list_id     = $playlist->id;
+                $movieDetails->movie_id    = $request->movie_id;
+                if ($movieDetails->save()) {
+                    $userlistDetails                    = new UserlistDetails();
+                    $userlistDetails->user_id           = Session('id');
+                    $userlistDetails->playlist_id       = $playlist->id;
+                    $userlistDetails->movie_details_id  = $movieDetails->id;
+
+                    if ($userlistDetails->save()) {
+                        $output['dbStatus']   = 1;
+                        $output['dbMessage']  = 'New List Created';
+                    } else {
+                        $output['dbStatus']   = 0;
+                        $output['dbMessage']  = 'Some Error Occurred';
+                    }
                 } else {
                     $output['dbStatus']   = 0;
                     $output['dbMessage']  = 'Some Error Occurred';
@@ -65,22 +78,52 @@ class AddToListController extends Controller
     public function addToList(Request $request)
     {
         $output = array('dbStatus' => '', 'dbMessage' => '');
-        $check = ListDetail::select('movie_id')->where('list_id', $request->id)->get(); //that particular movie is existing or not
-        if ($check[0]['movie_id'] != $request->movie_id) {
-            $listDetails              = new ListDetail;
-            $listDetails->poster_path = $request->poster_path;
-            $listDetails->list_id     = $request->id;
-            $listDetails->movie_id    = $request->movie_id;
-            if ($listDetails->save()) {
-                $output['dbStatus']   = 1;
-                $output['dbMessage']  = 'New Movie Added';
+        //$check_playlist  = Playlist::where('list_name', $request->list_name)->get(); //List is existing or not
+        $check_movie_list = MovieDetails::where('movie_id', $request->movie_id)->get(); //that particular movie is existing or not
+        // print_r($check_movie_list[0]['movie_id']);
+        if (sizeof($check_movie_list)) {
+            $check_user_list  = UserlistDetails::where('movie_details_id', $check_movie_list[0]['id'])
+                ->where('user_id', Session('id'))
+                ->get();
+
+            if (!sizeof($check_user_list)) {
+                $userlistDetails                    = new UserlistDetails();
+                $userlistDetails->user_id           = Session('id');
+                $userlistDetails->playlist_id       = $request->id;
+                $userlistDetails->movie_details_id  = $check_movie_list[0]['id'];
+                if ($userlistDetails->save()) {
+                    $output['dbStatus']   = 1;
+                    $output['dbMessage']  = 'New Movie Added';
+                } else {
+                    $output['dbStatus']   = 0;
+                    $output['dbMessage']  = 'Some Error Occurred';
+                }
+            }else{
+                $output['dbStatus']   = 0;
+                $output['dbMessage']  = 'Movie already exist in list';
+            }
+        } else {
+            $movieDetails              = new MovieDetails;
+            $movieDetails->poster_path = $request->poster_path;
+            $movieDetails->movie_id    = $request->movie_id;
+            if ($movieDetails->save()) {
+                $userlistDetails                    = new UserlistDetails();
+                $userlistDetails->user_id           = Session('id');
+                $userlistDetails->playlist_id       = $request->id;
+                $userlistDetails->movie_details_id  = $movieDetails->id;
+                if ($userlistDetails->save()) {
+                    $output['dbStatus']   = 1;
+                    $output['dbMessage']  = 'New Movie Added';
+                } else {
+                    $output['dbStatus']   = 0;
+                    $output['dbMessage']  = 'Some Error Occurred';
+                }
             } else {
                 $output['dbStatus']   = 0;
                 $output['dbMessage']  = 'Some Error Occurred';
             }
-        } else {
-            $output['dbStatus']   = 0;
-            $output['dbMessage']  = 'This movie is already in list';
         }
+
+        return response()->json($output);
     }
 }

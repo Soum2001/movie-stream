@@ -15,17 +15,17 @@ class HomeController extends Controller
     {
         $movie = Http::asJson()
             ->get(config('services.tmdb.endpoint') . 'movie/popular?api_key=' . config('services.tmdb.api'))->collect();
-        
+
         $tv = Http::asJson()
-        ->get(config('services.tmdb.endpoint') . 'tv/popular?api_key=' . config('services.tmdb.api'))->collect();
-        
-       
-        $custom_list = ListDetail::select('list_details.poster_path','playlist.list')
-        ->join('playlist', 'playlist.id', '=', 'list_details.list_id')
-        ->where('playlist.user_id', '=', session('id'))
-        ->get();
-   
-        return view('Trending', ['movie_data' => $movie, 'tv' => $tv ,'custom_list' => $custom_list]);
+            ->get(config('services.tmdb.endpoint') . 'tv/popular?api_key=' . config('services.tmdb.api'))->collect();
+
+
+        // $custom_list = ListDetail::select('list_details.poster_path','playlist.list')
+        // ->join('playlist', 'playlist.id', '=', 'list_details.list_id')
+        // ->where('playlist.user_id', '=', session('id'))
+        // ->get();
+
+        return view('Trending', ['movie_data' => $movie, 'tv' => $tv]);
     }
 
     public function movieDetails(Request $request)
@@ -33,14 +33,18 @@ class HomeController extends Controller
         $movie_id = $request->movie_id;
         $movie = Http::asJson()
             ->get(config('services.tmdb.endpoint') . 'movie/' . $movie_id . '?api_key=' . config('services.tmdb.api'))->collect();
-        $vote_average  = ceil($movie['vote_average']*10);
-       
+        $vote_average  = ceil($movie['vote_average'] * 10);
+
         $cast = Http::asJson()
             ->get(config('services.tmdb.endpoint') . 'movie/' . $movie_id . '/credits?api_key=' . config('services.tmdb.api'))->collect();
 
-        $list =  Playlist::where('user_id', '=', session('id'))->get();
-
-        return view('MovieDetails', ['cast_details' => $cast, 'movie' => $movie, 'list' => $list ,'vote_average' => $vote_average]);
+        $list =  Playlist::select('playlist.id','playlist.list_name')
+            ->join('user_list_details', 'user_list_details.user_id', '=', 'playlist.id')
+            ->where('user_list_details.user_id', '=', session('id'))
+            ->distinct()
+            ->get();
+     
+        return view('MovieDetails', ['cast_details' => $cast, 'movie' => $movie, 'vote_average' => $vote_average,'list' => $list]);
     }
 
     public function tvDetails(Request $request)
@@ -51,10 +55,10 @@ class HomeController extends Controller
         $cast = Http::asJson()
             ->get(config('services.tmdb.endpoint') . 'tv/' . $tv_id . '/credits?api_key=' . config('services.tmdb.api'))->collect();
 
-        $list =  Playlist::where('user_id', '=', session('id'))->get();
-        $vote_average  = ceil($tv['vote_average']*10);
+        //$list =  Playlist::where('user_id', '=', session('id'))->get();
+        $vote_average  = ceil($tv['vote_average'] * 10);
 
-        return view('TvDetails', ['cast_details' => $cast, 'tv' => $tv, 'list' => $list ,'vote_average' => $vote_average]);
+        return view('TvDetails', ['cast_details' => $cast, 'tv' => $tv, 'vote_average' => $vote_average]);
     }
 
     public function castDetails(Request $request)
@@ -96,4 +100,5 @@ class HomeController extends Controller
         }
         return response()->json($output);
     }
+   
 }

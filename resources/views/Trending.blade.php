@@ -9,7 +9,7 @@
                         <div class="col-md-8 offset-md-2">
                             <h2 class="display-5 text-info">Search Your Movies/TV Shows</h2>
 
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-xs btn-info active">
                                     <input type="radio" name="options" id="option_a1" value="movie" class="option">
                                     Movie
@@ -18,9 +18,9 @@
                                     <input type="radio" name="options" id="option_a2" value="tv" class="option">
                                     TV Show
                                 </label>
-                            </div>
+                            </div> -->
                             <div class="input-group mt-2">
-                                <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" id="search_name">
+                                <input type="search" class="form-control form-control-lg" placeholder="Type your movie/show name here" id="search_name">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-lg btn-default" onclick="search()">
                                         <i class="fa fa-search"></i>
@@ -85,21 +85,7 @@
                             @endforeach
                         </div>
                         <br>
-                        @if(!($custom_list->isEmpty()))
-                        <h3>Custom List</h3>
-                        @endif
-                        <div class="media-scroller">
-                           
-                             @foreach($custom_list as $custom_path)
-                            <div class="media-element">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <img class="img-fluid pad" src="https://www.themoviedb.org/t/p/w220_and_h330_face{{$custom_path['poster_path']}}" alt="Photo" style="object-fit: contain;width: 100%;height: 300px;" )></a>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
+                      
                     </div>
                 </div>
                 <div class="search">

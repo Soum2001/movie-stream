@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListDetailsTable extends Migration
+class UserListDetails extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateListDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('list_details', function (Blueprint $table) {
+        Schema::create('user_list_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('list_id');
-            $table->foreign('list_id')->references('id')->on('playlist');
-            $table->string('poster_path');
-            $table->string('movie_id');
+            $table->bigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->bigInteger('playlist_id');
+            $table->foreign('playlist_id')->references('id')->on('playlist');
+           
             $table->timestamps();
         });
+     
     }
 
     /**
@@ -30,6 +32,6 @@ class CreateListDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('list_details');
+        Schema::dropIfExists('user_list_details');
     }
 }

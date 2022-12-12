@@ -42,6 +42,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link" href="registeration_page" id="registeration_page" name="registeration_page"><b style="color:white">Join</b></a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="custom_page" id="custom_page" name="custom_page"><b style="color:white">List</b></a>
+            </li>
         </ul>
     </div>
 </nav>

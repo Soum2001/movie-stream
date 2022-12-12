@@ -15,7 +15,8 @@
                             </a>
                             <div class="dropdown-menu">
                                 @foreach($list as $list_details)
-                                <a class="dropdown-item" tabindex="-1" id='<?= $list_details['id']?>' onclick="select_list('<?= $list_details['id']?>','<?=$movie['poster_path']?>','<?=$movie['id']?>')">{{$list_details->list}}</a>
+                                <!-- <a class="dropdown-item" tabindex="-1" id="add_gallery">{{$list_details->list_name}}</a> -->
+                                <a class="dropdown-item" tabindex="-1" id='<?= $list_details['id']?>' onclick="select_list('<?= $list_details['id']?>','<?=$movie['poster_path']?>','<?=$movie['id']?>')">{{$list_details->list_name}}</a>
                                 @endforeach
                             </div>
                         </li>

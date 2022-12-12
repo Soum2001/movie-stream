@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AddToListController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomListController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Middleware\AuthenticateUser;
+
 
 
 
@@ -28,6 +30,7 @@ Route::get('/movie_details/{movie_id}', [HomeController::class, 'movieDetails'])
 Route::get('/tv_details/{tv_id}', [HomeController::class, 'tvDetails']);
 Route::get('/cast_details/{person_id}', [HomeController::class, 'castDetails']);
 Route::get('search/', [HomeController::class, 'search']);
+
 //---------------------------------HomeController End----------------------------------------------------------------
 
 //------------------------------RegistrationController Start----------------------------------------------------------
@@ -51,3 +54,8 @@ Route::get('new_list_page', [AddToListController::class, 'list_creation_page']);
 Route::post('create_new_list', [AddToListController::class, 'addNewList']);
 Route::post('add_to_list', [AddToListController::class, 'addToList']);
 //-----------------------------------AddToListController End----------------------------------------------------------
+
+
+//------------------------------------CustomListController Start--------------------------------------------------------
+Route::get('custom_page/', [CustomListController::class, 'customPage']);
+//------------------------------------CustomListController End----------------------------------------------------------
