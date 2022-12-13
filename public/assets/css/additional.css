@@ -38,6 +38,29 @@
   margin-left: 26px;
   margin-top: -40px;
 }
+.card-body {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.list:hover{
+  cursor: pointer;
+}
+.banner-image{
+  position: relative;
+}
+.user_name{
+  position: absolute;
+  top: 70px;
+  left: 358px;
+  color: white;
+  font-size: 60px;
+  border:1px solid black;
+  padding:10px;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+}
 
 
 

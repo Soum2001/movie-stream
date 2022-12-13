@@ -108,4 +108,28 @@ function select_list(id,poster_path,movie_id)
             //      jQuery('.search').html(response);
         }
     });
+    
 }
+function all_movie_list(list_name)
+    {
+        $.ajax({
+        
+            url: '../list_of_collection',
+            type: 'get',
+            data: {list_name : list_name},
+            // success: function (response) {
+            //     var jsonData = JSON.parse(JSON.stringify(response));
+            //     if (jsonData.dbStatus) {
+            //         toastr.success(jsonData.dbMessage);
+            //         $("#add_new_list").modal('hide');
+            //     }
+            //     else {
+            //         toastr.error(jsonData.dbMessage);
+            //         $("#add_new_list").modal('hide');
+            //     }
+            //     //      $("#home").html("");
+            //     //     // //document.getElementById(home).innerHTML = "";
+            //     //      jQuery('.search').html(response);
+            // }
+        });
+    }

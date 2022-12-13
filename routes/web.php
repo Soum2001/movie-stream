@@ -58,4 +58,5 @@ Route::post('add_to_list', [AddToListController::class, 'addToList']);
 
 //------------------------------------CustomListController Start--------------------------------------------------------
 Route::get('custom_page/', [CustomListController::class, 'customPage']);
+Route::get('all_movie_list/{list_name}', [CustomListController::class, 'collectionList']);
 //------------------------------------CustomListController End----------------------------------------------------------
